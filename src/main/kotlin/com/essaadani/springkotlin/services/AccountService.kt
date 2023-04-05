@@ -18,4 +18,11 @@ class AccountService(val repository: AccountRepository) {
         if (repository.existsById(id)) repository.deleteById(id)
         else throw ResponseStatusException(HttpStatus.NOT_FOUND)
     }
+
+    fun update(id: Long, account: Account): Account {
+        return if (repository.existsById(id)) {
+            account.id = id
+            repository.save(account)
+        } else throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    }
 }
